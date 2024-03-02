@@ -34,7 +34,7 @@ no_button.addEventListener('click', () => {
     // Change banner source
     let banner = document.getElementById('banner');
     if (clicks === 0) {
-        banner.src = "public/images/eiei.jpg";
+        banner.src = "/public/images/eiei.jpg";
         refreshBanner();
     }
     clicks++;
@@ -63,7 +63,7 @@ no_button.addEventListener('click', () => {
 yes_button.addEventListener('click', () => {
     // change banner gif path
     let banner = document.getElementById('banner');
-    banner.src = "public/images/ng.jpg";
+    banner.src = "/public/images/ng.jpg";
     refreshBanner();
     // hide buttons div
     let buttons = document.getElementsByClassName('buttons')[0];
