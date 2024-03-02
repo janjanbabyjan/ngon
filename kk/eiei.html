@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Noto Sans Thai", sans-serif;
+
+    }
+
+    p,
+    button {
+      font-family: "Noto Sans Thai", sans-serif;
+    }
+
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      flex-direction: row;
+      align-items: end;
+      flex-wrap: wrap;
+    }
+
+    #no-button {
+      margin: 0 10px;
+      color: white;
+      background-color: red;
+      height: 40px !important;
+      width: auto;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+
+      p {
+        margin: 0;
+        object-fit: contain;
+      }
+    }
+
+    #yes-button {
+      margin: 0 10px;
+      color: white;
+      border: none;
+      background-color: green;
+      cursor: pointer;
+      height: 40px;
+
+      p {
+        margin: 0;
+        object-fit: contain;
+      }
+    }
+
+    /* Make responsive for mobile */
+    @media (max-width: 768px) {
+      body {
+        padding: 0 20px;
+      }
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .message {
+      display: none;
+    }
+
+    .banner-gif {
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+
+      img {
+        width: auto;
+        height: 250px;
+      }
+    }
+
+    .language-selector {
+      margin-top: 30px;
+      position: unset;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .language-selector label {
+      margin-right: 10px;
+    }
+
+    .language-selector select {
+      padding: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .creator {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .creator:visited {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .creator:hover {
+      text-decoration: underline;
+      color: #555;
+    }
+
+    /* CSS For Mobile */
+    @media (max-width: 768px) {
+      .language-selector {
+        position: unset;
+        margin-top: 30px;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="banner-gif">
+      <img id="banner" src="kub.jpg" alt="banner" />
+    </div>
+    <h1 id="question-heading">พาไออ้วนมาง้อน้องแพรว</h1>
+    <h1 id="question-heading">ดีกันนะ</h1>
+    <h1 id="question-heading">ดี กัน!!!!</h1>
+    <div class="buttons">
+      <button id="yes-button">
+        <p>ดีกานน</p>
+      </button>
+      <button id="no-button">
+        <p>ไม่</p>
+      </button>
+    </div>
+    <div class="message">
+      <h2 id="success-message">เย้ :3</h2>
+
+    </div>
+    <!-- <div class="language-selector">
+        <label for="language-select">Choose Language:</label>
+        <select id="language-select" onchange="changeLanguage()">
+          <option value="english">English</option>
+          <option value="french">French</option>
+        </select>
+      </div> -->
+  </div>
+  <script>
+    const answers_no = {
+      english: [
+        "ไม่",
+        "ไม่ดีกันจริงเหรอ",
+        "ทำไมไม่ดีกัน",
+        "ดีกันนะ",
+        "พี่รักแพรวอะ",
+        "ดีกันเร็ว",
+        "ขอโทษค่ะ แจนจะเป็นเด็กดีนะ",
+        "ดีกันนนนนนนนนนน",
+        "ทำไมไม่กดดีกันอะ",
+        "ไม่รักกันแล้วอะดิ",
+        "หมาตัวนี้ซึมทั้งวันอะ",
+        "พี่รักแพรวกับนมเปรี้ยว",
+        "ไม่รักแจนแล้วเหรอ",
+        "ทำไมไม่ดีกันอะ",
+        "อือ แต่ดีกันนะ"
+      ],
+    };
+
+    answers_yes = {
+      "english": "Yes",
+      "french": "Oui"
+    }
+
+    let language = "english"; // Default language is English
+    const no_button = document.getElementById('no-button');
+    const yes_button = document.getElementById('yes-button');
+    let i = 1;
+    let size = 50;
+    let clicks = 0;
+
+    no_button.addEventListener('click', () => {
+      // Change banner source
+      let banner = document.getElementById('banner');
+      if (clicks === 0) {
+        banner.src = "eiei.jpg";
+        refreshBanner();
+      }
+      clicks++;
+      // increase button height and width gradually to 250px
+      const sizes = [40, 50, 30, 35, 45]
+      const random = Math.floor(Math.random() * sizes.length);
+      size += sizes[random]
+      yes_button.style.height = `${size}px`;
+      yes_button.style.width = `${size}px`;
+      let total = answers_no[language].length;
+      // change button text
+      if (i < total - 1) {
+        no_button.innerHTML = answers_no[language][i];
+        i++;
+      } else if (i === total - 1) {
+        alert(answers_no[language][i]);
+        i = 1;
+        no_button.innerHTML = answers_no[language][0];
+        yes_button.innerHTML = answers_yes[language];
+        yes_button.style.height = "50px";
+        yes_button.style.width = "50px";
+        size = 50;
+      }
+    });
+
+    yes_button.addEventListener('click', () => {
+      // change banner gif path
+      let banner = document.getElementById('banner');
+      banner.src = "ng.jpg";
+      refreshBanner();
+      // hide buttons div
+      let buttons = document.getElementsByClassName('buttons')[0];
+      buttons.style.display = "none";
+      // show message div
+      let message = document.getElementsByClassName('message')[0];
+      message.style.display = "block";
+    });
+
+    function refreshBanner() {
+      // Reload banner gif to force load  
+      let banner = document.getElementById('banner');
+      let src = banner.src;
+      banner.src = '';
+      banner.src = src;
+    }
+
+    function changeLanguage() {
+      const selectElement = document.getElementById("language-select");
+      const selectedLanguage = selectElement.value;
+      language = selectedLanguage;
+
+      // Update question heading
+      const questionHeading = document.getElementById("question-heading");
+      if (language === "french") {
+        questionHeading.textContent = "Tu veux être mon valentin?";
+      } else {
+        questionHeading.textContent = "Will you be my valentine?";
+      }
+
+      // Reset yes button text
+      yes_button.innerHTML = answers_yes[language];
+
+      // Reset button text to first in the new language
+      if (clicks === 0) {
+        no_button.innerHTML = answers_no[language][0];
+      } else {
+        no_button.innerHTML = answers_no[language][clicks];
+      }
+
+      // Update success message
+      const successMessage = document.getElementById("success-message");
+      if (language === "french") {
+        successMessage.textContent = "Yepppie, à bientôt :3";
+      } else {
+        successMessage.textContent = "Yepppie, see you sooonnn :3";
+      }
+    }
+  </script>
+</body>
+
+</html>
